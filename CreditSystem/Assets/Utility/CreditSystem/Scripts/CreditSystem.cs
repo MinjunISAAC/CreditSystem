@@ -57,8 +57,8 @@ namespace Utility.ForCredit
         // Components
         // --------------------------------------------------
         [Header("Asset View Group")]
-        [SerializeField] private CreditHubView _coinHubView = null;
-        [SerializeField] private CreditHubView _gemHubView  = null;
+        [SerializeField] private CreditHudView _coinHubView = null;
+        [SerializeField] private CreditHudView _gemHubView  = null;
 
         // --------------------------------------------------
         // Functions - Event

@@ -7,7 +7,7 @@ using TMPro;
 
 namespace Utility.ForCredit.UI
 {
-    public class CreditHubView : MonoBehaviour
+    public class CreditHudView : MonoBehaviour
     {
         // --------------------------------------------------
         // Components
