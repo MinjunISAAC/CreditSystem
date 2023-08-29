@@ -31,8 +31,8 @@ namespace Utility.ForData.UserSave
         // --------------------------------------------------
         // Functions - Nomal
         // --------------------------------------------------
-        public void AddToCoin(int value) => Coin += value;
-        public void AddToGem(int value)  => Gem  += value;
+        public void AcquireToCoin(int value) => Coin += value;
+        public void AcquireToGem(int value)  => Gem  += value;
         public bool TryToConsumeCoin(int value)
         {
             if (Coin < value)

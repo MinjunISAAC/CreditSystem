@@ -70,6 +70,27 @@ namespace Utility.ForData.UserSave
             }
         }
 
+        // ----- Data
+        public static void AcquireToCoin() 
+        { 
+        
+        }
+
+        public static void AcquireToGem()
+        {
+
+        }
+
+        public static void ConsumeCoin(int value)
+        {
+
+        }
+
+        public static void ConsumeGem(int value)
+        {
+
+        }
+
         // ----- Private
         private static bool _TryLoad(string fileName, out string fileContents)
         {
