@@ -5,6 +5,7 @@ using System.IO;
 // ----- Unity
 using UnityEngine;
 using UnityEditor;
+using Utility.ForCredit;
 
 // ----- User Defined
 
@@ -71,24 +72,42 @@ namespace Utility.ForData.UserSave
         }
 
         // ----- Data
-        public static void AcquireToCoin() 
-        { 
-        
-        }
-
-        public static void AcquireToGem()
+        public static void AcquireToCoin(int value)
         {
-
+            UserSaveData.AcquireToCoin(value);
+            CreditSystem.Instance.RefreshAsset();
+            Save();
         }
+
+        public static void AcquireToGem(int value) 
+        {
+            UserSaveData.AcquireToGem(value);
+            CreditSystem.Instance.RefreshAsset();
+            Save();
+        } 
 
         public static void ConsumeCoin(int value)
         {
+            if (UserSaveData.TryToConsumeCoin(value))
+            {
+                Save();
+                CreditSystem.Instance.RefreshAsset();
+                return;
+            }
 
+            // [TODO] Toast Message Show
         }
 
         public static void ConsumeGem(int value)
         {
+            if (UserSaveData.TryToConsumeGem(value))
+            {
+                Save();
+                CreditSystem.Instance.RefreshAsset();
+                return;
+            }
 
+            // [TODO] Toast Message Show
         }
 
         // ----- Private

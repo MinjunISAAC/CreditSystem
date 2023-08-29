@@ -13,41 +13,39 @@ namespace Utility.ForData.UserSave
     public class UserSaveData
     {
         // --------------------------------------------------
+        // Components
+        // --------------------------------------------------
+        [SerializeField] private int _coin = 0;
+        [SerializeField] private int _gem  = 0;
+
+        // --------------------------------------------------
         // Properties
         // --------------------------------------------------
         // ----- Int
-        public int Coin
-        {
-            get;
-            private set;
-        } = 0;
+        public int Coin => _coin;
 
-        public int Gem
-        {
-            get;
-            private set;
-        } = 0;
+        public int Gem  => _gem;
 
         // --------------------------------------------------
         // Functions - Nomal
         // --------------------------------------------------
-        public void AcquireToCoin(int value) => Coin += value;
-        public void AcquireToGem(int value)  => Gem  += value;
+        public void AcquireToCoin(int value) => _coin += value;
+        public void AcquireToGem(int value)  => _gem += value;
         public bool TryToConsumeCoin(int value)
         {
-            if (Coin < value)
+            if (_coin < value)
                 return false;
 
-            Coin -= value;
+            _coin -= value;
             return true;
         }
 
         public bool TryToConsumeGem(int value)
         {
-            if (Gem < value)
+            if (_gem < value)
                 return false;
 
-            Gem -= value;
+            _gem -= value;
             return true;
         }
     }
