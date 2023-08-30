@@ -2,9 +2,9 @@
 
 **게임 속에 존재하는 Credit(재화) 들을 관리하는 시스템입니다.**
 
-- CreditSystem Version 1.0 (2023.08.29)
+- CreditSystem Version 1.1 (2023.08.30)
 
-## CreditSystem Version 1.0
+## CreditSystem Version 1.1
 
 ### 기능
 
