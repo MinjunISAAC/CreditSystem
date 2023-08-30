@@ -56,9 +56,12 @@ namespace Utility.ForCredit
         // --------------------------------------------------
         // Components
         // --------------------------------------------------
-        [Header("Asset View Group")]
-        [SerializeField] private CreditHudView _coinHubView = null;
-        [SerializeField] private CreditHudView _gemHubView  = null;
+        [Header("Canvas")]
+        [SerializeField] private RectTransform _RECT_canvas    = null;
+        
+        [Space] [Header("Asset View Group")]
+        [SerializeField] private CreditHudView _coinHubView    = null;
+        [SerializeField] private CreditHudView _gemHubView     = null;
 
         // --------------------------------------------------
         // Functions - Event
@@ -83,6 +86,11 @@ namespace Utility.ForCredit
             OnInit(userData.Coin, userData.Gem);
         }
 
+        private void Update()
+        {
+            //Debug.Log($"width : {_RECT_canvas.sizeDelta.x} height : {_RECT_canvas.sizeDelta.y}");
+        }
+
         private void OnDestroy()
         {
             if (_isSingleton)
@@ -103,6 +111,9 @@ namespace Utility.ForCredit
 
             _coinHubView.RefreshCreditValue(coinValue);
             _gemHubView. RefreshCreditValue(gemValue);
+
+            _coinHubView.OnInit();
+            _gemHubView. OnInit();
         }
 
         public void RefreshAsset()
