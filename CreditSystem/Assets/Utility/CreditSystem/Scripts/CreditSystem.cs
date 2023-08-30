@@ -116,10 +116,16 @@ namespace Utility.ForCredit
             _gemHubView. OnInit();
         }
 
-        public void RefreshAsset()
+        public void RefreshCredit()
         {
             _coinHubView.RefreshCreditValue(UserSaveDataManager.UserSaveData.Coin);
             _gemHubView. RefreshCreditValue(UserSaveDataManager.UserSaveData.Gem);
+        }
+
+        public void RefreshFillCredit(ECreditType type, int fillCredit)
+        {
+            if (type == ECreditType.Coin) _coinHubView.RefreshCreditValue(UserSaveDataManager.UserSaveData.Coin, fillCredit);
+            if (type == ECreditType.Gem)  _gemHubView. RefreshCreditValue(UserSaveDataManager.UserSaveData.Gem, fillCredit);
         }
     }
 }

@@ -74,15 +74,19 @@ namespace Utility.ForData.UserSave
         // ----- Data
         public static void AcquireToCoin(int value)
         {
+            int prevCredit = UserSaveDataManager.UserSaveData.Coin;
+
             UserSaveData.AcquireToCoin(value);
-            CreditSystem.Instance.RefreshAsset();
+            CreditSystem.Instance.RefreshFillCredit(ECreditType.Coin, value);
             Save();
         }
 
-        public static void AcquireToGem(int value) 
+        public static void AcquireToGem(int value)
         {
+            int prevCredit = UserSaveDataManager.UserSaveData.Gem;
+
             UserSaveData.AcquireToGem(value);
-            CreditSystem.Instance.RefreshAsset();
+            CreditSystem.Instance.RefreshFillCredit(ECreditType.Gem, value);
             Save();
         } 
 
@@ -91,7 +95,7 @@ namespace Utility.ForData.UserSave
             if (UserSaveData.TryToConsumeCoin(value))
             {
                 Save();
-                CreditSystem.Instance.RefreshAsset();
+                CreditSystem.Instance.RefreshCredit();
                 return;
             }
 
@@ -103,7 +107,7 @@ namespace Utility.ForData.UserSave
             if (UserSaveData.TryToConsumeGem(value))
             {
                 Save();
-                CreditSystem.Instance.RefreshAsset();
+                CreditSystem.Instance.RefreshCredit();
                 return;
             }
 

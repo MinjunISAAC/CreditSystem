@@ -50,9 +50,6 @@ namespace Utility.ForCredit.UI
         // --------------------------------------------------
         // Components
         // --------------------------------------------------
-        [SerializeField] private Button                   _BTN_Test        = null;
-
-
         [Header("UI")]
         [SerializeField] private CanvasGroup              _canvasGroup     = null;
         [SerializeField] private RectTransform            _RECT_canvas     = null;
@@ -102,9 +99,6 @@ namespace Utility.ForCredit.UI
             _minDistance    = _RECT_canvas.rect.width / MIN_DISTANCE_FACTOR;
 
             _canvasGroup.alpha = 0;
-        
-            // TEST
-            _BTN_Test.onClick.AddListener(() => { SpreadParticle(_spreadCount, _spreadDistance, _spreadSpeed, _absorbSpeed, null); });
         }
 
         public void RefreshCreditValue(int value, bool isMax = false)
@@ -116,6 +110,17 @@ namespace Utility.ForCredit.UI
             }
 
             _TMP_value.text = _FormatAssetValue(value);
+        }
+
+        public void RefreshCreditValue(int value, int fillValue, bool isMax = false)
+        {
+            if (isMax)
+            {
+                _TMP_value.text = $"MAX";
+                return;
+            }
+
+            SpreadParticle(_spreadCount, _spreadDistance, _spreadSpeed, _absorbSpeed, () => { StartCoroutine(_Co_FillAmountCredit(value, fillValue)); });
         }
 
         public void SpreadParticle(ESpreadCount spreadCountType, ESpreadDistance spreadDistanceType, ESpreadSpeed spreadSpeedType, EAbsorbSpeed apsorbSpeedType, Action doneCallBack) 
@@ -217,15 +222,39 @@ namespace Utility.ForCredit.UI
                     moveSpreadSec, 
                     () => 
                     {
-                        particleUnit.Absorb(_RECT_hidePoint.anchoredPosition, moveAbsorbSec, () => particleUnit.gameObject.SetActive(false));
+                        particleUnit.Absorb
+                        (
+                            _RECT_hidePoint.anchoredPosition, 
+                            moveAbsorbSec, 
+                            () => 
+                            {
+                                particleUnit.gameObject.SetActive(false);
+                                doneCallBack?.Invoke();
+                            }
+                        );
                     }
                 );
 
                 if (_spreadDelay) yield return new WaitForSeconds(_delayTime);
             }
 
-            doneCallBack?.Invoke();
+            
             yield return null;
+        }
+
+        private IEnumerator _Co_FillAmountCredit(int userCredit, int changeCredit) 
+        {
+            var startCredit = userCredit - changeCredit;
+            var endCredit   = userCredit;
+
+            while (startCredit < endCredit)
+            {
+                startCredit += 1;
+                _TMP_value.text = _FormatAssetValue(startCredit);
+                yield return null;
+            }
+
+            _TMP_value.text = _FormatAssetValue(endCredit);
         }
     }
 }
